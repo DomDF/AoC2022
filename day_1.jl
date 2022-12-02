@@ -1,8 +1,6 @@
 using DelimitedFiles
 
-pwd()
 cd("/Users/ddifrancesco/Github/AoC2022")
-
 data = readdlm("day_1_data.txt", skipblanks = false, String)
 
 snack_dict = Dict(); elf = 1
@@ -20,9 +18,12 @@ findmax(snack_dict)
 
 # Part 2: ...and what about all of the top 3?
 
-snack_dict |> 
-    x -> values(x) |>
-    x -> collect(x) |>
-    x -> sort(x) |>
-    x -> x[end-2 : end] |>
-    x -> sum(x)
+function top_n_calories(snack_dict::Dict, n_elves::Int)
+    top_n_calories = values(snack_dict) |>
+        x -> collect(x) |>
+        x -> sort(x, rev = true) |>
+        x -> x[1:n_elves]
+    return top_n_calories
+end
+
+top_n_calories(snack_dict, 3) |> x -> sum(x)
