@@ -10,14 +10,13 @@ function get_item(rucksack::SubString{String})
     n_items = length(rucksack)
     compartment_1 = rucksack[begin:Int(n_items/2)]
     compartment_2 = rucksack[Int(n_items/2)+1:end]
-
     return compartment_1[argmax([i ∈ compartment_2 for i ∈ compartment_1])]
 end
 
 # Part 1: What is the sum of the priorities of the items in both compartments?
 
 item_priorities = []
-for rucksack in rucksacks
+for rucksack ∈ rucksacks
     append!(item_priorities, 
             get_item(rucksack) |> x -> get_priority(x))
 end
@@ -34,7 +33,7 @@ function get_badge_id(group::Vector{Any})
 end
 
 badge_priorities = []
-for i in 1:3:length(rucksacks)
+for i ∈ 1:3:length(rucksacks)
     elf_group = rucksacks[i:i+2]
     append!(badge_priorities,
             get_badge_id(elf_group) |> x -> get_priority(x))

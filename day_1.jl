@@ -4,7 +4,7 @@ cd("/Users/ddifrancesco/Github/AoC2022")
 data = readdlm("day_1_data.txt", skipblanks = false, String)
 
 snack_dict = Dict(); elf = 1
-for snack in data
+for snack ∈ data
     if snack == ""
         elf  += 1
     else

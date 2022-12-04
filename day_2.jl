@@ -30,7 +30,7 @@ end
 # Part 1: What would your total score be, following this strategy guide?
 
 scores = []
-for i in 1:size(games)[1]
+for i ∈ 1:size(games)[1]
     append!(scores, play_RPS(games[i, :][1], games[i, :][2]))
 end
 
@@ -63,7 +63,7 @@ function get_response(opponent_move::SubString{String}, result::SubString{String
 end
 
 new_scores = []
-for i in 1:size(games)[1]
+for i ∈ 1:size(games)[1]
     append!(new_scores, play_RPS(games[i, :][1], 
                                  get_response(games[i, :][1], games[i, :][2])))
 end
