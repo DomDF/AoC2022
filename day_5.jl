@@ -1,4 +1,4 @@
-cd("/Users/ddifrancesco/Github/AoC2022"); crate_procedure = readdlm("day_5_data.txt", skipblanks = false)
+cd("/Users/ddifrancesco/Github/AoC2022")
 
 crate_procedure = []
 open("day_5_data.txt") do io
@@ -35,7 +35,7 @@ n_crates = ints_from_step(procedure, 2); from_stacks = ints_from_step(procedure,
 
 # Part 1: After the rearrangement procedure completes, what crate ends up on top of each stack?
 
-function rearrange_crates(stacks, num_crates::Int, moving_from::Int, moving_to::Int, one_by_one::Bool = true)
+function rearrange_crates(stacks, num_crates::Int, moving_from::Int, moving_to::Int; one_by_one::Bool = true)
     current_stacks = copy(stacks); moving_stack = []
     for crate ∈ 1:num_crates
         append!(moving_stack, 
@@ -57,7 +57,6 @@ end
 
 new_stacks = copy(initial_stacks)
 for task ∈ 1:length(procedure)
-    println(task)
     new_stacks = rearrange_crates(new_stacks, n_crates[task], from_stacks[task], to_stacks[task])
 end
 
@@ -67,8 +66,8 @@ end
 
 new_stacks = copy(initial_stacks)
 for task ∈ 1:length(procedure)
-    println(task)
-    new_stacks = rearrange_crates(new_stacks, n_crates[task], from_stacks[task], to_stacks[task], false)
+    new_stacks = rearrange_crates(new_stacks, n_crates[task], from_stacks[task], to_stacks[task], 
+                                  one_by_one = false)
 end
 
 [new_stacks[i][1] for i ∈ 1:n_stacks]
