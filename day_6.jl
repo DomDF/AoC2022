@@ -3,7 +3,7 @@ using DelimitedFiles
 cd("/Users/ddifrancesco/Github/AoC2022"); code = readdlm("day_6_data.txt")[1]
 
 function find_marker(code::SubString{String}, chunk_length::Int = 4)
-    for l in 1:(length(code) - chunk_length)
+    for l ∈ 1:(length(code) - chunk_length)
         start = l; stop = l + chunk_length - 1; chunk = code[start:stop]
         if unique(chunk) |> x -> length(x) == chunk_length
             return [chunk, stop]; break
