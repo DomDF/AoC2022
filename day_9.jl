@@ -87,7 +87,3 @@ for move in moves
 end
 
 last(rope_df).visited |> x -> length(x)
-
-rope_df |> x -> vscodedisplay(x)
-
-Chain = last(rope_df).chain; T_prev = last(rope_df).visited
