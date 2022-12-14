@@ -2,6 +2,8 @@ using DataFrames
 
 cd("/Users/ddifrancesco/Github/AoC2022"); moves = readlines("day_9_data.txt")
 
+move_dict = Dict("U" => [0, 1], "D" => [0, -1], "R" => [1, 0], "L" => [-1, 0])
+
 function move_T(H::Vector{Int64}, T::Vector{Int64})
     h = copy(H); t = copy(T); Δt = [0, 0]
     Δx = h[1] - t[1]; Δy = h[2] - t[2]
@@ -24,39 +26,15 @@ end
 function move_rope(Chain::Vector{Vector{Int64}}, T_prev::Vector{Vector{Int64}}, 
                    dir::SubString{String}, steps::Int64)
     chain = copy(Chain); t_prev = copy(T_prev); len = length(chain)
-    if dir == "U"
-        for i in 1:steps
-            chain[begin] = chain[begin] .+ [0, 1]
-            for l in 1:(len-1)
-                chain[l + 1] = move_T(chain[l], chain[l + 1])
-                chain[end] ∉ t_prev ? append!(t_prev, [chain[end]]) : []
-            end
-        end
-    elseif dir == "D"
-        for i in 1:steps
-            chain[begin] = chain[begin] .+ [0, -1]
-            for l in 1:(len-1)
-                chain[l + 1] = move_T(chain[l], chain[l + 1])
-                chain[end] ∉ t_prev ? append!(t_prev, [chain[end]]) : []
-            end
-        end
-    elseif dir == "R"
-        for i in 1:steps
-            chain[begin] = chain[begin] .+ [1, 0]
-            for l in 1:(len-1)
-                chain[l + 1] = move_T(chain[l], chain[l + 1])
-                chain[end] ∉ t_prev ? append!(t_prev, [chain[end]]) : []
-            end
-        end
-    elseif dir == "L"
-        for i in 1:steps
-            chain[begin] = chain[begin] .+ [-1, 0]
-            for l in 1:(len-1)
-                chain[l + 1] = move_T(chain[l], chain[l + 1])
-                chain[end] ∉ t_prev ? append!(t_prev, [chain[end]]) : []
-            end
+
+    for i in 1:steps
+        chain[begin] = chain[begin] .+ move_dict[dir]
+        for l in 1:(len-1)
+            chain[l + 1] = move_T(chain[l], chain[l + 1])
+            chain[end] ∉ t_prev ? append!(t_prev, [chain[end]]) : []
         end
     end
+
     return Dict("chain" => [chain], "visited" => [t_prev])
 end
 
